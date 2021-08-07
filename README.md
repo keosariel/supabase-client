@@ -90,3 +90,4 @@ if __name__ == "__main__":
 ## License
 Supabase-Client is licensed under the [MIT License](https://mit-license.org/)
 
+See [Supabase Docs](https://supabase.io/docs/guides/api)
