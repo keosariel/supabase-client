@@ -32,7 +32,7 @@ async def main():
     # Insertion of Data
 
     error, result = await (
-      self.supabase.table("posts")
+      supabase.table("posts")
       .insert([{"title": "post title"}])
     )
 
@@ -40,7 +40,7 @@ async def main():
     new_title  =  "updated title"
     _id        = 1
     error, result =  await (
-      self.supabase.table("posts")
+      supabase.table("posts")
       .update(
         {"id"   : f"eq.{_id}"},
         {"title": new_title}
@@ -50,7 +50,7 @@ async def main():
     # Deleting of Data
 
     error, result = await (
-        self.supabase.table("posts")
+        supabase.table("posts")
         .delete({"id": _id})
     )
 
@@ -58,14 +58,14 @@ async def main():
 
     # All posts
     error, results = await (
-        self.supabase.table("posts")
+        supabase.table("posts")
         .select("*")
         .query()
     )
 
     # Add limits/range
     error, results = await (
-        self.supabase.table("posts")
+        supabase.table("posts")
         .select("*")
         .range(0,10)
         .query()
@@ -73,7 +73,7 @@ async def main():
 
     # Being specific
     error, results = await (
-        self.supabase.table("posts")
+        supabase.table("posts")
         .select("*")
         .eq("id",1)
         .query()
