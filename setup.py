@@ -16,8 +16,9 @@ setup(
     author="Kenneth Gabriel",
     author_email="kennethgabriel78@gmail.com",
     description=DESCRIPTION,
-    long_description="",
+    long_description="Github [https://github.com/keosariel/supabase-client](https://github.com/keosariel/supabase-client)",
     long_description_content_type="text/markdown",
+    url="https://github.com/keosariel/supabase-client",
     packages=find_packages(),
     license="MIT",
     install_requires=[
