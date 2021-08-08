@@ -3,7 +3,7 @@ A Supabase client for Python. This mirrors the design of [supabase-js](https://g
 
 ## Overview
 [Supabase](https://supabase.io/) is an Open Source Firebase Alternative that provides the tools and infrastructure you need to develop apps. It lets you
-create a backend in less than 2 minutes. Start your project with a Postgres Database, Authentication, instant APIs, realtime subscriptions and Storage. The **Supabase-Client** abstracts access to the endpoint to the READ, INSERT, UPDATE, and DELETE operations on an existing **table** in your supabase application.
+create a backend in less than 2 minutes. The **Supabase-Client** abstracts access the endpoints to the READ, INSERT, UPDATE, and DELETE operations on an existing **table** in your supabase application.
 
 However, this project is base on the [Supabase API](https://supabase.io/docs/guides/api)
 
