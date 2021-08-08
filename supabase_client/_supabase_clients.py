@@ -4,7 +4,9 @@ import urllib.parse
 from ._http_client import HTTPClient
 from ._utils import TableQueryBuilder
 
-from .supebase_exceptions import UnexpectedValueTypeError, ClientConnectorError
+from .supebase_exceptions import (
+    UnexpectedValueTypeError, ClientConnectorError,
+    SupabaseError)
 
 class TableClient(TableQueryBuilder):
 
@@ -77,7 +79,7 @@ class TableClient(TableQueryBuilder):
         try:
             async with HTTPClient(endpoint, headers=headers) as session:
                 response, json_data = await session.requests("PATCH", json=data)
-                return self._error(response), json_data
+                return self._error(response, json_data), json_data
         except aiohttp.ClientConnectorError as err:
             raise ClientConnectorError(str(err))
 
@@ -112,7 +114,7 @@ class TableClient(TableQueryBuilder):
         try:
             async with HTTPClient(endpoint, headers=headers) as session:
                 response, json_data = await session.requests("POST", json=data)
-                return self._error(response), json_data
+                return self._error(response, json_data), json_data
         except aiohttp.ClientConnectorError as err:
             raise ClientConnectorError(str(err))
 
@@ -138,7 +140,7 @@ class TableClient(TableQueryBuilder):
         try:
             async with HTTPClient(endpoint, headers=self.headers) as session:
                 response, json_data = await session.requests("DELETE")
-                return self._error(response), json_data
+                return self._error(response, json_data), json_data
         except aiohttp.ClientConnectorError as err:
             raise ClientConnectorError(str(err))
 
@@ -153,10 +155,21 @@ class TableClient(TableQueryBuilder):
             try:
                 async with HTTPClient(self._as_url, headers=self.headers) as session:
                     response, json_data = await session.requests("GET")
-                    return self._error(response), json_data
+                    return self._error(response, json_data), json_data
 
             except aiohttp.ClientConnectorError as err:
                 raise ClientConnectorError(str(err))
 
-    def _error(self, response):
-        return response.status not in self.success_status_codes
+    def _error(self, response, data=None):
+        """Raises an error is an error supabase returned an error
+        Note: an error JSON-DATA is in format {"message": `content`}
+        """
+        has_error = response.status not in self.success_status_codes
+        if type(data) == dict:
+            if len(data) == 1:
+                message = data.get("message")
+
+                if message and has_error:
+                    raise SupabaseError(message)
+
+        return has_error

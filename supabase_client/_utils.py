@@ -63,39 +63,46 @@ class TableQueryBuilder(QueryBuilder):
 		if type(val) is not int:
 			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
-		raise NotImplementedError
+		self.vars.update({column: f"gt.{val}"})
+		return self
 
 	def lt(self, column, val):
 		if type(val) is not int:
 			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
-		raise NotImplementedError
+		self.vars.update({column: f"lt.{val}"})
+		return self
 
 	def gte(self, column, val):
 		if type(val) is not int:
 			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
-		raise NotImplementedError
+		self.vars.update({column: f"gte.{val}"})
+		return self
 
 	def lte(self, column, val):
 		if type(val) is not int:
 			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
-		raise NotImplementedError
+		self.vars.update({column: f"lte.{val}"})
+		return self
 
 	def like(self, column, val):
-		raise NotImplementedError
+		self.vars.update({column: f"like.{val}"})
+		return self
+
+	def ilike(self, column, val):
+		self.vars.update({column: f"ilike.{val}"})
+		return self
+
+	def neq(self, column, val):
+		self.vars.update({column: f"neq.{val}"})
+		return self
 
 	def _is(self, column, val):
 		raise NotImplementedError
 
 	def _in(self, column, val):
-		raise NotImplementedError
-
-	def ilike(self, column, val):
-		raise NotImplementedError
-
-	def neq(self, column, val):
 		raise NotImplementedError
 
 	def cs(self, column, val):

@@ -27,18 +27,18 @@ class HTTPClient:
 	async def requests(self, method, url="", **kwargs):
 		"""Makes an HTTP call using the Python aiohttp library.
 
-        This is the sole entry point to the requests library. All other helper methods in this
-        class call this method to send HTTP requests out. Refer to
+		This is the sole entry point to the requests library. All other helper methods in this
+		class call this method to send HTTP requests out. Refer to
 
-        :param method: HTTP method name as a string (e.g. GET, POST).
-        :param url: URL of the remote endpoint.
-        :param kwargs: An additional set of keyword arguments to be passed into the requests API
-              (e.g. json, data, headers).
+		:param method: HTTP method name as a string (e.g. GET, POST).
+		:param url: URL of the remote endpoint.
+		:param kwargs: An additional set of keyword arguments to be passed into the requests API
+		      (e.g. json, data, headers).
 
-        :return: An HTTP response object and possibly the response JSON.
+		:return: An HTTP response object and possibly the response JSON.
 
-        :raises: NotImplementedError
-        """
+		:raises: NotImplementedError
+		"""
 
 		method = method.upper()
 		if method not in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
