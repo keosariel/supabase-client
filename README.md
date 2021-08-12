@@ -15,80 +15,89 @@ To install Supabase-Client, simply execute the following command in a terminal:
 pip install supabase-client
 ```
 
-## Managing Data
+## Initializing
+You can initialize a new Supabase client using the Client() method.
 
+The Supabase client is your entrypoint to the rest of the Supabase functionality and is the easiest way to interact with the Supabase ecosystem.
+
+### Example
 ```python
-
-# requirement: pip install python-dotenv
-
-import asyncio
+# requirement: pip install python-dotevn
 from supabase_client import Client
-
 from dotenv import dotenv_values
 config = dotenv_values(".env")
 
-supabase = Client(
-    api_url=config.get("SUPABASE_URL"),
-    api_key=config.get("SUPABASE_KEY")
+supabase = Client( 
+	api_url=config.get("SUPABASE_URL"),
+	api_key=config.get("SUPABASE_KEY")
 )
+```
 
-async def main():
-    # Insertion of Data
+## Reading Data
+### Fetch data: `select()`
+```python
+# Note: inside an async function
+error, results = await (
+     supabase.table("cities")
+     .select("*")
+     .query()
+)
+```
+### Adding limits: `limit()`
+```python
+# Note: inside an async function
+error, results = await (
+     supabase.table("cities")
+     .select("*")
+     .limit(5)
+     .query()
+)
+```
+## Filters
+```python
+# Note: inside an async function
+error, results = await (
+     supabase.table("cities")
+     .select("*")
+    # Filters
+    # .eq('column', 'Equal to')
+    # .gt('column', 'Greater than')
+    # .lt('column', 'Less than')
+    # .gte('column', 'Greater than or equal to')
+    # .lte('column', 'Less than or equal to')
+    # .like('column', '%CaseSensitive%')
+    # .ilike('column', '%CaseInsensitive%')
+    # .neq('column', 'Not equal to')
+    .query()
+)
+```
+## Inserting Data
+### Create data: `insert()`
+```python
+error, result = await (
+      supabase.table("cities")
+      .insert([{"name": "The Shire", "country_id": 554}])
+)
+```
 
-    error, result = await (
-      supabase.table("posts")
-      .insert([{"title": "post title"}])
-    )
-
-    # Updating of Data
-    new_title  =  "updated title"
-    _id        = 1
-    error, result =  await (
-      supabase.table("posts")
+## Modify data: `update()`
+### Performs an UPDATE operation on the table.
+```python
+error, result = await (
+      supabase.table("cities")
       .update(
-        {"id"   : f"eq.{_id}"},
-        {"title": new_title}
+      	{ 'name': 'Auckland' }, # Selection/Target column
+      	{ 'name': 'Middle Earth' } # Update
       )
-    )
-
-    # Deleting of Data
-
-    error, result = await (
-        supabase.table("posts")
-        .delete({"id": _id})
-    )
-
-    # Filtering Data
-
-    # All posts
-    error, results = await (
-        supabase.table("posts")
-        .select("*")
-        .query()
-    )
-
-    # Add limits/range
-    error, results = await (
-        supabase.table("posts")
-        .select("*")
-        .range(0,10)
-        .query()
-    )
-
-    # Being specific
-    error, results = await (
-        supabase.table("posts")
-        .select("*")
-        .eq("id",1)
-        .query()
-    )
-  
-  
-     
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+)
+```
+## Delete data: `delete()`
+### Performs a DELETE operation on the table.
+```python
+error, result = await (
+      supabase.table("cities")
+      .delete({ 'name': 'Middle Earth' })
+)
 ```
 
 ## License
