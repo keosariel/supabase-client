@@ -146,45 +146,45 @@ class TableQueryBuilder(QueryBuilder):
 
     def ilike(self, column, pattern):
         """
-                Finds all rows whose value in the stated `column` matches the supplied
+        Finds all rows whose value in the stated `column` matches the supplied
         `pattern` (case insensitive).
 
-                :param column:  The column to filter on.
-                :param pattern:  The pattern to filter with.
+        :param column:  The column to filter on.
+        :param pattern:  The pattern to filter with.
         """
         self.vars.update({column: f"ilike.{val}"})
         return self
 
     def _is(self, column, val):
         """
-                A check for exact equality (null, true, false), finds all rows whose
+        A check for exact equality (null, true, false), finds all rows whose
         value on the stated `column` exactly match the specified `val`.
 
-                :param column:  The column to filter on.
-                :param val:  The value to filter with.
+        :param column:  The column to filter on.
+        :param val:  The value to filter with.
         """
         self.vars.update({column: f"is.{val}"})
         return self
 
-    def _in(self, column, vals):
+    def _in(self, column, val):
         """
-                Finds all rows whose value on the stated `column` is found on the
+        Finds all rows whose value on the stated `column` is found on the
         specified `vals`.
 
-                :param column:  The column to filter on.
-                :param vals:  The pattern to filter with.
+        :param column:  The column to filter on.
+        :param vals:  The pattern to filter with.
         """
-        self.vars.update({column: f"in.({val})"})
+        self.vars.update({column: f"in.({','.join(val)})"})
         return self
 
     def cs(self, column, val):
         """
-                # contains
-                Finds all rows whose json, array, or range value on the stated `column`
+        # contains
+        Finds all rows whose json, array, or range value on the stated `column`
         contains the values specified in `val`.
 
-                :param column:  The column to filter on.
-                :param val:  The value to filter with.
+        :param column:  The column to filter on.
+        :param val:  The value to filter with.
         """
         if type(val) == str:
             self.vars.update({column: f"cs.{{{val}}}"})
@@ -198,12 +198,12 @@ class TableQueryBuilder(QueryBuilder):
 
     def cd(self, column, val):
         """
-                # containedBy
-                Finds all rows whose json, array, or range value on the stated `column` is
+        # containedBy
+        Finds all rows whose json, array, or range value on the stated `column` is
         contained by the specified `val`.
 
-                :param column:  The column to filter on.
-                :param val:  The value to filter with.
+        :param column:  The column to filter on.
+        :param val:  The value to filter with.
         """
         if type(val) == str:
             self.vars.update({column: f"cd.{{{val}}}"})
