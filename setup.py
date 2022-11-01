@@ -7,7 +7,7 @@ from supabase_client import __version__
 here = os.path.abspath(os.path.dirname(__file__))
 
 VERSION = __version__
-DESCRIPTION = 'A supabase client for Python'
+DESCRIPTION = "A supabase client for Python"
 
 # Setting up
 setup(
@@ -31,7 +31,7 @@ setup(
     extras_require={
         "dotenv": ["python-dotenv"],
     },
-    keywords=['python', 'supabase', 'request', 'aiohttp', 'client'],
+    keywords=["python", "supabase", "request", "aiohttp", "client"],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
@@ -39,5 +39,5 @@ setup(
         "Operating System :: Unix",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
-    ]
+    ],
 )

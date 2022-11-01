@@ -1,8 +1,8 @@
 from ._http_client import HTTPClient
 from ._supabase_clients import TableClient
 
-class Client:
 
+class Client:
     def __init__(self, api_url, api_key, headers={}, raise_error=True):
         """
         Instantiate the client.
@@ -15,7 +15,7 @@ class Client:
 
         if not api_url:
             raise Exception("Supabase API-URL  is required")
-        
+
         if not api_key:
             raise Exception("Supabase API-KEY is required")
 
@@ -30,11 +30,10 @@ class Client:
             **headers,
         }
 
-
     def table(self, name):
         """
         Create a Instance of a query-able table
-        
+
         :param name: an existing table
         :type  name: String
 
@@ -45,10 +44,10 @@ class Client:
         self.headers.update(self._get_auth_headers)
 
         table_client = TableClient(
-            api_url    = self.rest_url,
-            table_name = name,
-            headers    = self.headers,
-            raise_error=self.raise_error
+            api_url=self.rest_url,
+            table_name=name,
+            headers=self.headers,
+            raise_error=self.raise_error,
         )
 
         return table_client
@@ -57,10 +56,8 @@ class Client:
     def _get_auth_headers(self):
         """Helper method to get auth headers."""
 
-        headers =  {
+        headers = {
             "apiKey": self.api_key,
             "Authorization": f"Bearer {self.api_key}",
         }
         return headers
-
-
