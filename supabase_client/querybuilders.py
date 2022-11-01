@@ -92,8 +92,6 @@ class TableQueryBuilder(QueryBuilder):
 		:param column:  The column to filter on.
 		:param val:  The value to filter with.
 		"""
-		if type(val) is not int:
-			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
 		self.vars.update({column: f"gt.{val}"})
 		return self
@@ -106,8 +104,6 @@ class TableQueryBuilder(QueryBuilder):
 		:param column:  The column to filter on.
 		:param val:  The value to filter with.
 		"""
-		if type(val) is not int:
-			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
 		self.vars.update({column: f"lt.{val}"})
 		return self
@@ -120,8 +116,6 @@ class TableQueryBuilder(QueryBuilder):
 		:param column:  The column to filter on.
 		:param val:  The value to filter with.
 		"""
-		if type(val) is not int:
-			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
 		self.vars.update({column: f"gte.{val}"})
 		return self
@@ -134,8 +128,6 @@ class TableQueryBuilder(QueryBuilder):
 		:param column:  The column to filter on.
 		:param val:  The value to filter with.
 		"""
-		if type(val) is not int:
-			raise UnexpectedValueTypeError("Expected type int for: `val`")
 
 		self.vars.update({column: f"lte.{val}"})
 		return self
